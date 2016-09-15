@@ -1,0 +1,137 @@
+<h1>Develop, Run, Debug, Update your ASP.NET Core Applications in a Docker Container</h1>
+<p>Develop your applications in the environment your targeting using the latest preview of Docker Tool for Visual Studio. Find those pesky bugs that only crop up when deployed, using F5 to debug your application directly in a locally hosted Docker Container,  or CTRL + F5 to edit and refresh your application without having to rebuild the container.</p>
+<p><img id="205468" src="https://i1.visualstudiogallery.msdn.s-msft.com/0f5b2caa-ea00-41c8-b8a2-058c7da0b3e4/image/file/205468/1/add-docker-support.png" alt="" width="624" height="166" /></p>
+<p>See&nbsp;<a href="https://blogs.msdn.microsoft.com/stevelasker/2016/02/19/developing-asp-net-apps-in-docker-containers/" target="_blank">here for more info </a>on the files scaffolded into your project with a detailed walkthrough.</p>
+<p>As this is a preview release, we're very interested in your feedback, via the <a href="http://feedback.azure.com/forums/170031-sdk-and-tools " target="_blank"> Azure SDK and Tools Forum.</a></p>
+<p><strong><em>Note: The current version targets Linux Docker containers, with Windows Containers coming soon.</em></strong></p>
+<h2>Use command line scripts to build and run Docker Containers</h2>
+<p>With scaffolded docker files and a DockerTask.ps1 PowerShell script, you have the flexibility to control the Visual Studio build process, as well as build and run your containers through command line tools.</p>
+<ul>
+<li>Visual Studios F5 and CTRL + F5 calls into the DockerTask.ps1 file, giving you full control of the Docker build and compose steps. </li>
+<li>DockerTask.ps1 can be launched directly from a PowerShell command prompt, where parameters can be passed to further customize and control the process. </li>
+<li>Run the DockerTask.ps1 script from your automated CI/build environment, giving consistent builds from development through pushing your images to a Docker Registry </li>
+<li>Build and Deploy docker images to remote hosts using the DockerTask.ps1 script, passing in the docker-machine host name </li>
+</ul>
+<p>The following command illustrates how to deploy a web application using the docker-compose.release.yml file to a remote docker host.</p>
+<ul>
+<li>Open a PowerShell prompt, and CD into the root directory of your project. </li>
+<li>Configure a remote docker host with docker-machine </li>
+<li>Run the following commands to build and run app into a remote docker container named MyRemoteDockerHost </li>
+</ul>
+<div class="scriptcode">
+<div class="pluginEditHolder" pluginCommand="mceScriptCode">
+<div class="title"><span>PowerShell</span></div>
+<div class="pluginLinkHolder"><span class="pluginEditHolderLink">Edit</span>|<span class="pluginRemoveHolderLink">Remove</span></div>
+<span class="hidden">powershell</span>
+<pre class="hidden">.\Docker\DockerTask.ps1 -Build -Environment Release -Machine MyRemoteDockerHost
+.\Docker\DockerTask.ps1 -Run -Environment Release -Machine MyRemoteDockerHost</pre>
+<div class="preview">
+<pre class="powershell">.\Docker\DockerTask.ps1&nbsp;<span class="powerShell__operator">-</span>Build&nbsp;<span class="powerShell__operator">-</span>Environment&nbsp;Release&nbsp;<span class="powerShell__operator">-</span>Machine&nbsp;MyRemoteDockerHost&nbsp;
+... output from build ...
+.\Docker\DockerTask.ps1&nbsp;<span class="powerShell__operator">-</span>Run&nbsp;<span class="powerShell__operator">-</span>Environment&nbsp;Release&nbsp;<span class="powerShell__operator">-</span>Machine&nbsp;MyRemoteDockerHost</pre>
+</div>
+</div>
+</div>
+<div class="endscriptcode">&nbsp;</div>
+<h1>Documentation</h1>
+<ul>
+<li><a href="https://azure.microsoft.com/documentation/articles/vs-azure-tools-docker-edit-and-refresh/">Build, Debug, Update and Refresh apps in a local Docker container</a> </li>
+<li><a href="https://azure.microsoft.com/documentation/articles/vs-azure-tools-docker-hosting-web-apps-in-docker/">Deploy an ASP.NET container to a remote Docker host</a> </li>
+<li><a href="https://azure.microsoft.com/en-us/documentation/articles/vs-azure-tools-docker-machine-azure-config/">Create Docker Hosts in Azure with Docker-Machine</a> </li>
+<li><a href="https://azure.microsoft.com/documentation/articles/vs-azure-tools-docker-setup/">Configure a Docker Host with VirtualBox</a> </li>
+<li><a href="https://channel9.msdn.com/Blogs/Seth-Juarez/Steve-Lasker-on-Docker-Tools-for-Visual-Studio">Channel 9 video</a>&nbsp;showing how easy it is to develop and debug your first ASP .NET Core application in a local Docker container. </li>
+</ul>
+<h1>Troubleshooting</h1>
+<p>For common issues, see the <a href="https://aka.ms/DockerToolsTroubleShooting"> troubleshooting topic</a></p>
+<h1>Prerequisites</h1>
+<ul>
+<li><a href="https://www.visualstudio.com/downloads/download-visual-studio-vs" target="_blank">Microsoft Visual Studio 2015 Update 3. </a>The following SKUs are supported: 
+<ul>
+<li>Enterprise 2015 </li>
+<li>Professional 2015 </li>
+<li>Community 2015 </li>
+</ul>
+</li>
+<li><a href="http://go.microsoft.com/fwlink/?LinkId=817245">Microsoft .NET Core 1.0.0 RTM VS 2015 Tooling Preview 2</a> </li>
+<li>Install <a href="http://beta.docker.com" target="_blank">Docker For Windows&nbsp;</a>beta or&nbsp;<a href="https://www.docker.com/products/overview#/docker_toolbox" target="_blank">Docker Toolbox</a>&nbsp; </li>
+</ul>
+<p>To run Docker containers locally, you'll need a local docker client. You can use the released <a href="https://www.docker.com/products/overview#/docker_toolbox" target="_blank"> Docker Toolbox</a> which requires Hyper-V to be disabled, or you can alternatively use the <a href="https://beta.docker.com/" target="_blank">Docker for Windows Beta</a> which uses Hyper-V, and requires Windows 10.</p>
+<p>If using Docker Toolbox, you'll need to <a href="https://azure.microsoft.com/documentation/articles/vs-azure-tools-docker-setup/" target="_blank"> Configure the Docker client</a></p>
+<h1>Version History</h1>
+<h2>Version 0.31.0 Updates</h2>
+<ul>
+</ul>
+<ul>
+<li>Switch back to using docker-compose for build (now with image tagging) </li>
+<li>Better error message on Build failure. </li>
+<li>Updated Docker for Windows beta address to http://localhost </li>
+<li>Added .dockerignore </li>
+<li>Bug Fixes </li>
+</ul>
+<ul>
+</ul>
+<h2>Version 0.30.0 Updates</h2>
+<ul>
+<li>Added support for .Net Core RTM. </li>
+<li>Added support for .Net Core Console Applications. </li>
+</ul>
+<h2>Version 0.21.0 Updates</h2>
+<ul>
+<li>Restructuring of the Docker assets. </li>
+<li>More verbose output. </li>
+<li>Fixes related to volume mapping validation. </li>
+</ul>
+<h2>Version 0.20.0 Updates</h2>
+<ul>
+<li>Support for breakpoint debugging. See <a href="https://azure.microsoft.com/en-us/documentation/articles/vs-azure-tools-docker-edit-and-refresh/"> Debugging apps in a local Docker container</a> for a walkthrough </li>
+<li>Changed dockerfiles to use the published output to improve performance of package restore within a container and preparation for production deployment </li>
+<li>Added support for ASP.NET Core RC2 </li>
+</ul>
+<h2>Version 0.15.0 Updates</h2>
+<ul>
+<li>Removed setup dependencies as we've found that customers were installing Docker in various ways and we decided to not restrict to the ones we were focusing upon. </li>
+<li>Fix for Visual Studio notification issue related to docker tools updates. </li>
+</ul>
+<h2>Version 0.14.0 Updates</h2>
+<ul>
+<li>Removed the Publish UI in lieu of more flexible PowerShell scripts that utilize the docker compose files and docker-machine entries. See&nbsp;<a href="https://azure.microsoft.com/en-us/documentation/articles/vs-azure-tools-docker-hosting-web-apps-in-docker/">Deploy  an ASP.NET container to a remote Docker host</a>&nbsp;for how to use docker-machine and the DockerTask.ps1 script. Also note, docker-machine 0.7.0 is coming soon, and will simplify Azure Host creation dramatically </li>
+<li>Fixes for multiple issues related to DockerTask script </li>
+<li>Initial support for <a href="https://blogs.msdn.microsoft.com/stevelasker/2016/03/24/docker-for-windows-beta-released/"> Docker For Windows Beta</a> </li>
+</ul>
+<h2>Version 0.12.0 Updates</h2>
+<ul>
+<li>Fixes for new template </li>
+</ul>
+<h2>Version 0.11.0 Updates</h2>
+<ul>
+<li>Fixes for multiple issues related to Publish </li>
+</ul>
+<h2>Version 0.10.0 Updates</h2>
+<ul>
+<li>Added new <a href="http://go.microsoft.com/fwlink/?LinkID=733331" target="_blank"> Edit and Refresh</a> feature to edit apps in a local Docker container. </li>
+</ul>
+<h2>Version 0.9.2 Updates</h2>
+<ul>
+<li>Fix for an issue where publish profile was incorrectly generated for Custom hosts. </li>
+</ul>
+<h2>Version 0.9.1 Updates</h2>
+<ul>
+<li>Fix for an issue where Dockerfile was not being generated for Custom hosts. </li>
+</ul>
+<h2>Version 0.9 Updates</h2>
+<ul>
+<li>Release to support ASP.NET 5 RC1. </li>
+<li>Certificates created with earlier versions of the Visual Studio 2015 Tools for docker (v0.8 and below) are incompatible with the current version (v0.9). The latest implementation of Docker is more strict in how it handles the * in domain names in certificates.  Certificates that were previously generated with previous versions of tools in the *.cloudapp.azure.com format are no longer accepted as the location of the VM host is not required (e.g. *.eastus.cloudapp.azure.com). Certificates may now only be re-used with  VM in the same region. To use the v0.9 of the tools you have to delete the certificates in&nbsp; %USERPROFILE%\.docker and re-create your container hosts. </li>
+</ul>
+<h2>Version 0.8 Updates</h2>
+<ul>
+<li>A very minor release to support ASP.NET 5 beta 8. </li>
+</ul>
+<h2>Version 0.7 Updates</h2>
+<ul>
+<li>A very minor release to cleanup some setup issues related to localized installs and support for ASP.NET 5 beta 7. </li>
+</ul>
+<h2>Version 0.6 Updates</h2>
+<ul>
+<li>Windows 2016 Technical Preview 3 Container Support Developers can now get an early preview of Windows Container support with ASP.NET 5 Web and Console apps<br /> <strong>Note: </strong><em>While version 0.6 supported Windows TP3 through a publishing experience, the current tools do not yet target Windows Containers as we are focusing on the Windows Nano Container experience. Tooling will be updated as Windows Nano containers  are available.</em> </li>
+</ul>
